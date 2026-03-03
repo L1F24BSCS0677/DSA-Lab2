@@ -1,0 +1,131 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+template <class T>
+class TestScores {
+private:
+    string participantName;
+    T marks[10];
+
+public:
+    void input();
+    void display();
+    T totalMarks();
+    double averageMarks();
+    T highestMark();
+    int FindMark(T value);
+    void sortMarks();
+};
+
+template <class T>
+void TestScores<T>::input() {
+    cout << "Enter participant name: ";
+    cin >> participantName;
+
+    cout << "Enter 10 marks: ";
+    for (int i = 0; i < 10; i++)
+        cin >> marks[i];
+}
+
+template <class T>
+void TestScores<T>::display() {
+    cout << "Participant: " << participantName << endl;
+    cout << "Marks: ";
+    for (int i = 0; i < 10; i++)
+        cout << marks[i] << " ";
+    cout << endl;
+}
+
+template <class T>
+T TestScores<T>::totalMarks() {
+    T total = 0;
+    for (int i = 0; i < 10; i++)
+        total += marks[i];
+    return total;
+}
+
+template <class T>
+double TestScores<T>::averageMarks() {
+    return static_cast<double>(totalMarks()) / 10;
+}
+
+template <class T>
+T TestScores<T>::highestMark() {
+    T highest = marks[0];
+    for (int i = 1; i < 10; i++) {
+        if (marks[i] > highest)
+            highest = marks[i];
+    }
+    return highest;
+}
+
+template <class T>
+int TestScores<T>::FindMark(T value) {
+    for (int i = 0; i < 10; i++) {
+        if (marks[i] == value)
+            return i;
+    }
+    return -1;
+}
+
+template <class T>
+void TestScores<T>::sortMarks() {
+    for (int i = 0; i < 9; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < 10; j++) {
+            if (marks[j] < marks[minIndex])
+                minIndex = j;
+        }
+        T temp = marks[i];
+        marks[i] = marks[minIndex];
+        marks[minIndex] = temp;
+    }
+}
+
+int main() {
+    TestScores<int> p1, p2, p3;
+    TestScores<float> p4, p5;
+
+    cout << "\n--- Participant 1 (int) ---\n";
+    p1.input();
+    p1.display();
+    cout << "Total: " << p1.totalMarks()
+         << ", Average: " << p1.averageMarks()
+         << ", Highest: " << p1.highestMark() << endl;
+
+    cout << "Find (3): " << p1.FindMark(3) << endl;
+    p1.sortMarks();
+    cout << "After Sorting:\n";
+    p1.display();
+
+    cout << "\n--- Participant 2 (int) ---\n";
+    p2.input();
+    p2.display();
+    cout << "Total: " << p2.totalMarks()
+         << ", Average: " << p2.averageMarks()
+         << ", Highest: " << p2.highestMark() << endl;
+
+    cout << "\n--- Participant 3 (int) ---\n";
+    p3.input();
+    p3.display();
+    cout << "Total: " << p3.totalMarks()
+         << ", Average: " << p3.averageMarks()
+         << ", Highest: " << p3.highestMark() << endl;
+
+    cout << "\n--- Participant 4 (float) ---\n";
+    p4.input();
+    p4.display();
+    cout << "Total: " << p4.totalMarks()
+         << ", Average: " << p4.averageMarks()
+         << ", Highest: " << p4.highestMark() << endl;
+
+    cout << "\n--- Participant 5 (float) ---\n";
+    p5.input();
+    p5.display();
+    cout << "Total: " << p5.totalMarks()
+         << ", Average: " << p5.averageMarks()
+         << ", Highest: " << p5.highestMark() << endl;
+
+    return 0;
+}
