@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int binarySearch(int A[], int N, int value) {
+    int low = 0;
+    int high = N - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;  
+
+        if (A[mid] == value){
+                return mid;
+        }
+        else if  (A[mid] < value){
+                low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+
+    int A[] = { 2, 5, 8, 12, 16, 23, 38, 56, 72, 91 };
+    int N = sizeof(A) / sizeof(A[0]);
+
+    int value;
+
+    cout << "Sorted Array: ";
+    for (int i = 0; i < N; i++)
+        cout << A[i] << " ";
+
+    cout << "\nEnter value to find: ";
+    cin >> value;
+
+    int result = binarySearch(A, N, value);
+
+    if (result != -1)
+        cout << "Value found at index: " << result << endl;
+    else
+        cout << "Value not found " << endl;
+
+    return 0;
+}
